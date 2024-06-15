@@ -15,7 +15,7 @@ public abstract class Vehicle {
     /** Vehicle's model */
     private String model;
     /** Vehicle's price */
-    private float value;
+    private double value;
     /** Vehicle's rental period in days */
     private int rentalPeriod;
 
