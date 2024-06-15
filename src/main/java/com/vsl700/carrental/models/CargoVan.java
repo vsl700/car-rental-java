@@ -1,10 +1,12 @@
 package com.vsl700.carrental.models;
 
+import java.util.Date;
+
 public class CargoVan extends Vehicle {
     private int driverExperience;
 
-    public CargoVan(String brand, String model, float value, int rentalPeriod, int driverExperience) {
-        super(brand, model, value, rentalPeriod);
+    public CargoVan(Date rentedOn, Customer customer, String brand, String model, float value, int rentalPeriod, int driverExperience) {
+        super(rentedOn, customer, brand, model, value, rentalPeriod);
 
         if(driverExperience < 0)
             throw new IllegalArgumentException("Driver's expericence should not be negative!");
@@ -17,6 +19,7 @@ public class CargoVan extends Vehicle {
         return driverExperience;
     }
 
+    /** Sets the cargo van's driver's experience in years */
     public void setDriverExperience(int driverExperience) {
         if(driverExperience < 0)
             throw new IllegalArgumentException("Driver's expericence should not be negative!");
