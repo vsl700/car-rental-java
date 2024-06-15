@@ -30,22 +30,31 @@ public class InvoicePrinterImpl implements InvoicePrinter {
         System.out.println("Reservation end date: %s".formatted(reservationEndDate));
         System.out.println("Reserved rental days: %s".formatted(invoice.getVehicle().getRentalPeriod()));
 
-        System.out.println("\nActual return date: %s".formatted(invoice.getReturnDate()));
+        System.out.println("\nActual Return date: %s".formatted(invoice.getReturnDate()));
         System.out.println("Actual rental days: %s".formatted(actualRentalDays));
 
         double discountedDailyInsurance = invoice.getInitialDailyInsurance() - invoice.getDailyInsuranceDiscount(); // Not early discount!
         System.out.println("\nRental cost per day: %s".formatted(currencyFormatter.format(invoice.getDailyRentalCost())));
-        System.out.println("Initial insurance per day: %s".formatted(currencyFormatter.format(invoice.getInitialDailyInsurance())));
-        System.out.println("Insurance discount per day: %s".formatted(currencyFormatter.format(invoice.getDailyInsuranceDiscount())));
+        if(invoice.getInitialDailyInsurance() != discountedDailyInsurance)
+            System.out.println("Initial insurance per day: %s".formatted(currencyFormatter.format(invoice.getInitialDailyInsurance())));
+        double dailyInsuranceDiscount = invoice.getDailyInsuranceDiscount();
+        if(dailyInsuranceDiscount < 0)
+            System.out.println("Insurance addition per day: %s".formatted(currencyFormatter.format(-dailyInsuranceDiscount)));
+        else if(dailyInsuranceDiscount > 0)
+            System.out.println("Insurance discount per day: %s".formatted(currencyFormatter.format(dailyInsuranceDiscount)));
         System.out.println("Insurance per day: %s".formatted(currencyFormatter.format(discountedDailyInsurance)));
         
-        System.out.println("\nEarly return discount for rent: %s".formatted(currencyFormatter.format(invoice.getRentForRemainingDays())));
-        System.out.println("Early return discount for insurance: %s".formatted(currencyFormatter.format(invoice.getEarlyInsuranceDiscount())));
+        double earlyRentDiscount = invoice.getRentForRemainingDays();
+        if(earlyRentDiscount != 0)
+            System.out.println("\nEarly return discount for rent: %s".formatted(currencyFormatter.format(earlyRentDiscount)));
+        double earlyInsuranceDiscount = invoice.getEarlyInsuranceDiscount();
+        if(earlyInsuranceDiscount != 0)
+            System.out.println("Early return discount for insurance: %s".formatted(currencyFormatter.format(earlyInsuranceDiscount)));
 
         double totalRent = invoice.getDailyRentalCost() * actualRentalDays + invoice.getRentForRemainingDays();
         double totalInsurance = discountedDailyInsurance * invoice.getVehicle().getRentalPeriod() - invoice.getEarlyInsuranceDiscount();
         System.out.println("\nTotal rent: %s".formatted(currencyFormatter.format(totalRent)));
-        System.out.println("Total Insurance: %s".formatted(currencyFormatter.format(totalInsurance)));
+        System.out.println("Total insurance: %s".formatted(currencyFormatter.format(totalInsurance)));
         System.out.println("Total: %s".formatted(currencyFormatter.format(totalRent + totalInsurance)));
 
         System.out.println("XXXXXXXXXX");
