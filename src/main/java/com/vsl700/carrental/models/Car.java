@@ -9,7 +9,7 @@ public class Car extends Vehicle {
     private int rating;
 
     public Car(Date rentedOn, Customer customer, String brand, String model, float value, int rentalPeriod, int rating) {
-        super(rentedOn, customer, brand, model, value, rentalPeriod);
+        super(brand, model, value, rentalPeriod, rentedOn, customer);
 
         if(rating < MIN_RATING || rating > MAX_RATING)
             throw new IllegalArgumentException("Rating should be between 1 and 5!");

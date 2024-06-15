@@ -6,7 +6,7 @@ public class CargoVan extends Vehicle {
     private int driverExperience;
 
     public CargoVan(Date rentedOn, Customer customer, String brand, String model, float value, int rentalPeriod, int driverExperience) {
-        super(rentedOn, customer, brand, model, value, rentalPeriod);
+        super(brand, model, value, rentalPeriod, rentedOn, customer);
 
         if(driverExperience < 0)
             throw new IllegalArgumentException("Driver's expericence should not be negative!");

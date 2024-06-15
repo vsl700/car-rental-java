@@ -6,7 +6,7 @@ public class Motorcycle extends Vehicle {
     private int riderAge;
 
     public Motorcycle(Date rentedOn, Customer customer, String brand, String model, float value, int rentalPeriod, int riderAge) {
-        super(rentedOn, customer, brand, model, value, rentalPeriod);
+        super(brand, model, value, rentalPeriod, rentedOn, customer);
 
         if(riderAge < 0)
             throw new IllegalArgumentException("Rider age should not be negative!");
