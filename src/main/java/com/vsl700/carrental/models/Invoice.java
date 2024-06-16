@@ -17,6 +17,6 @@ public class Invoice {
     private double dailyRentalCost;
     private double initialDailyInsurance;
     private double dailyInsuranceDiscount;
-    private double rentForRemainingDays;
+    private double earlyRentDiscount;
     private double earlyInsuranceDiscount;
 }

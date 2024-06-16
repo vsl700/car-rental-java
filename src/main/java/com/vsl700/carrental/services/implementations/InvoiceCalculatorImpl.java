@@ -41,11 +41,12 @@ public class InvoiceCalculatorImpl implements InvoiceCalculator {
             return invoiceBuilder.build(); // No early discount
 
         // Calculating the early discount prices
+        double totalEarlyDiscountedRent = dailyRentalCost * actualRentalDays + (dailyRentalCost / 2) * remainingDays; // Rent with discount
         double discountedInsurance = dailyInsuranceCost - insuranceDiscount;
         double totalInsurance = discountedInsurance * returnedVehicle.getRentalPeriod();
 
-        double rentForRemainingDays = dailyRentalCost / 2 * remainingDays;
-        invoiceBuilder.rentForRemainingDays(rentForRemainingDays);
+        double earlyRentDiscount = dailyRentalCost * returnedVehicle.getRentalPeriod() - totalEarlyDiscountedRent;
+        invoiceBuilder.earlyRentDiscount(earlyRentDiscount);
         double earlyInsuranceDiscount = totalInsurance - discountedInsurance * actualRentalDays;
         invoiceBuilder.earlyInsuranceDiscount(earlyInsuranceDiscount);
 
